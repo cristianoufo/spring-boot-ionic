@@ -21,7 +21,7 @@ public abstract class Pagamento implements Serializable {
 	@Id
 	private Integer id;
 	private Integer estado;
-	//@JsonBackReference
+	// @JsonBackReference
 	@JsonIgnore
 	@JoinColumn(name = "pedido_id")
 	@OneToOne
@@ -30,6 +30,13 @@ public abstract class Pagamento implements Serializable {
 
 	public Pagamento() {
 
+	}
+	
+	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
+		super();
+		this.id = id;
+		this.estado = (estado == null) ? null : estado.getCod();
+		this.pedido = pedido;
 	}
 
 	public Integer getId() {
@@ -56,12 +63,7 @@ public abstract class Pagamento implements Serializable {
 		this.pedido = pedido;
 	}
 
-	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
-		super();
-		this.id = id;
-		this.estado = estado.getCod();
-		this.pedido = pedido;
-	}
+	
 
 	@Override
 	public int hashCode() {
