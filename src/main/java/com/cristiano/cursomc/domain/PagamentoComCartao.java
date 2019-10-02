@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 import com.cristiano.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
