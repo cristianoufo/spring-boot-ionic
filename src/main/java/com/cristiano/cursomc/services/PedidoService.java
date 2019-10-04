@@ -14,7 +14,6 @@ import com.cristiano.cursomc.domain.enums.EstadoPagamento;
 import com.cristiano.cursomc.repositories.ItemPedidoRepository;
 import com.cristiano.cursomc.repositories.PagamentoRepository;
 import com.cristiano.cursomc.repositories.PedidoRepository;
-import com.cristiano.cursomc.repositories.ProdutoRepository;
 import com.cristiano.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -67,7 +66,7 @@ public class PedidoService {
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
 		System.out.println(obj);
-		emailService.sendOrderConfirmationHtmlEmail(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
 }

@@ -15,25 +15,25 @@ import com.cristiano.cursomc.services.SmtpEmailService;
 @Configuration
 @Profile("dev")
 public class DevConfig {
-	
-	@Autowired
-	private DBService service;
-	
-	@Value("${spring.jpa.hibernate.ddl-auto}")
-	private String strategy;
-	@Bean
-	public boolean instantiateDataBase() throws ParseException {
-		if(!"create".equals(strategy)) {
-			return false;
-		}
-		service.instantiateDataBase();
-		return true;
-	}
-        
-          @Bean
-      public EmailService getEmailService(){
-          return new SmtpEmailService();
-      }
 
+    @Autowired
+    private DBService service;
+
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String strategy;
+
+    @Bean
+    public boolean instantiateDataBase() throws ParseException {
+        if (!"create".equals(strategy)) {
+            return false;
+        }
+        service.instantiateTestDatabase();
+        return true;
+    }
+
+    @Bean
+    public EmailService getEmailService() {
+        return new SmtpEmailService();
+    }
 
 }
