@@ -42,14 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Environment env;
     
     private static final String PUBLIC_MATCHERS[] = {
-        "*/h2-console/**"};
+        "/h2-console/**"};
     private static final String PUBLIC_MATCHERS_GET[] = {
-        "*/produtos/**",
-        "*/categorias/**"};
+        "/produtos/**",
+        "/categorias/**"};
     
       private static final String PUBLIC_MATCHERS_POST[] = {
-        "*/clientes/**",
-        };
+        "/clientes/**",
+        "/auth/forgot/**"};
+      
     @Autowired
     private JWTUtil jwtUtil;
 
