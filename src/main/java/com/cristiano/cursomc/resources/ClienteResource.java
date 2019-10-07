@@ -21,6 +21,7 @@ import com.cristiano.cursomc.domain.Cliente;
 import com.cristiano.cursomc.dto.ClienteDTO;
 import com.cristiano.cursomc.dto.ClienteNewDTO;
 import com.cristiano.cursomc.services.ClienteService;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @RequestMapping(value = "/clientes")
@@ -50,12 +51,14 @@ public class ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 
+        @PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
+        @PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 
@@ -64,6 +67,7 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
+        @PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<ClienteDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
