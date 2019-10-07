@@ -9,7 +9,6 @@ package com.cristiano.cursomc.security;
  *
  * @author cristiano.modesto
  */
-import com.cristiano.cursomc.dto.CredenciaisDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +26,8 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.cristiano.cursomc.dto.CredenciaisDTO;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
