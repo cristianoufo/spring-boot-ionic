@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,11 @@ import com.cristiano.cursomc.security.UserSS;
 import com.cristiano.cursomc.services.exceptions.AuthorizationException;
 import com.cristiano.cursomc.services.exceptions.DataIntegrityException;
 import com.cristiano.cursomc.services.exceptions.ObjectNotFoundException;
+
+import java.awt.image.BufferedImage;
 import java.net.URI;
+import java.nio.Buffer;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,6 +51,12 @@ public class ClienteService {
 
 	@Autowired
 	private S3Service s3Service;
+	
+	@Autowired
+	private ImageService imageService;
+	
+	@Value("${img.prefix.client.profile}")
+	private String prefix;
 
 	public Cliente find(Integer id) {
 
@@ -131,10 +142,15 @@ public class ClienteService {
 		}
 		
 		
-		URI uri = s3Service.uploadFile(multipartFile);
-		Cliente cli = repo.findById(user.getId()).get();
-		cli.setImageUrl(uri.toString());
-		repo.save(cli);
-		return s3Service.uploadFile(multipartFile);
+		//URI uri = s3Service.uploadFile(multipartFile);
+		//Cliente cli = repo.findById(user.getId()).get();
+		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		String fileName = prefix + user.getId() +".jpg";
+		
+		//cli.setImageUrl(uri.toString());
+		//repo.save(cli);
+		//return s3Service.uploadFile(multipartFile);
+		
+		return s3Service.uploadFile(imageService.getInputStream(jpgImage,"jpg"),fileName,"image");
 	}
 }
