@@ -3,21 +3,23 @@ package com.cristiano.cursomc.resources.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationError extends StandardError {
+import java.util.ArrayList;
+import java.util.List;
 
+public class ValidationError extends StandardError {
 	private static final long serialVersionUID = 1L;
 
-	private List<FieldMessage> list  = new ArrayList<FieldMessage>();
-	public ValidationError(Integer status, String msg, Long timeStamp) {
-		super(status, msg, timeStamp);
-		
+	private List<FieldMessage> errors = new ArrayList<>();
+
+	public ValidationError(Long timestamp, Integer status, String error, String message, String path) {
+		super(timestamp, status, error, message, path);
 	}
 
-	public List<FieldMessage> getErrors(){
-		return list;
+	public List<FieldMessage> getErrors() {
+		return errors;
 	}
-	
-	public void addError(String fieldName,String message) {
-		list.add(new FieldMessage(fieldName, message));
+
+	public void addError(String fieldName, String messagem) {
+		errors.add(new FieldMessage(fieldName, messagem));
 	}
 }
